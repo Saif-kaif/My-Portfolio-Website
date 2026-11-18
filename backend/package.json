@@ -1,0 +1,23 @@
+{
+  "name": "saifuzzaman-kaif-portfolio-backend",
+  "version": "1.0.0",
+  "description": "Express.js + PostgreSQL API and static server for the Saifuzzaman Kaif portfolio.",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test",
+    "db:init": "node src/db/init.js",
+    "db:schema": "node src/db/init.js --schema-only",
+    "admin:create": "node scripts/create-admin.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.16.0"
+  }
+}

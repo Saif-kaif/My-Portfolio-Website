@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0B132B">
+  <meta name="color-scheme" content="dark">
+  <title>Admin | SK.</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script type="module" src="/js/admin.js"></script>
+</head>
+<body class="admin">
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="admin-header">
+    <div class="container admin-header__inner">
+      <div class="admin-header__brand">
+        <a class="brand" href="/" aria-label="Back to the portfolio">SK<span class="brand__dot">.</span></a>
+        <span class="admin-header__tag">Admin</span>
+      </div>
+      <div class="admin-header__user" data-user hidden>
+        <span class="admin-header__name">Signed in as <strong data-username></strong></span>
+        <button class="btn btn--ghost btn--sm" type="button" data-logout>Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container admin-main" id="main">
+    <p class="admin-loading" data-loading>Checking session…</p>
+
+    <!-- ---------- Sign in ---------- -->
+    <section class="admin-login glass" data-login-view hidden aria-labelledby="login-title">
+      <h1 id="login-title">Sign in</h1>
+      <p class="admin-muted">Manage projects, contact messages and certificate links.</p>
+      <form class="admin-form" data-login-form novalidate>
+        <div class="field">
+          <label class="field__label" for="login-username">Username</label>
+          <input class="field__input" id="login-username" name="username" type="text" autocomplete="username" required maxlength="64">
+        </div>
+        <div class="field">
+          <label class="field__label" for="login-password">Password</label>
+          <input class="field__input" id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="256">
+        </div>
+        <button class="btn btn--primary btn--block" type="submit">Sign in</button>
+        <div class="form-status" role="status" aria-live="polite" data-login-status></div>
+      </form>
+    </section>
+
+    <!-- ---------- Dashboard ---------- -->
+    <section data-dashboard hidden aria-label="Dashboard">
+      <div class="admin-tabs" role="tablist" aria-label="Content type">
+        <button class="admin-tab" role="tab" type="button" id="tab-projects" aria-controls="panel-projects" aria-selected="true">Projects</button>
+        <button class="admin-tab" role="tab" type="button" id="tab-messages" aria-controls="panel-messages" aria-selected="false" tabindex="-1">Messages</button>
+        <button class="admin-tab" role="tab" type="button" id="tab-achievements" aria-controls="panel-achievements" aria-selected="false" tabindex="-1">Achievements</button>
+      </div>
+
+      <!-- Projects -->
+      <div class="admin-panel" role="tabpanel" id="panel-projects" aria-labelledby="tab-projects">
+        <div class="admin-grid">
+          <form class="admin-card glass admin-form" data-project-form novalidate>
+            <h2 data-project-form-title>Add project</h2>
+            <input type="hidden" name="id">
+            <div class="field">
+              <label class="field__label" for="p-title">Title *</label>
+              <input class="field__input" id="p-title" name="title" type="text" required maxlength="150">
+              <p class="field__error" data-error-for="title"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="p-description">Description *</label>
+              <textarea class="field__input field__input--textarea" id="p-description" name="description" required maxlength="5000"></textarea>
+              <p class="field__error" data-error-for="description"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="p-technologies">Technologies (comma-separated)</label>
+              <input class="field__input" id="p-technologies" name="technologies" type="text" placeholder="Python, SQL">
+              <p class="field__error" data-error-for="technologies"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="p-image">Image URL</label>
+              <input class="field__input" id="p-image" name="image_url" type="text" inputmode="url" placeholder="https://… or /assets/projects/image.webp">
+              <p class="field__error" data-error-for="image_url"></p>
+            </div>
+            <div class="admin-form__row">
+              <div class="field">
+                <label class="field__label" for="p-github">GitHub URL</label>
+                <input class="field__input" id="p-github" name="github_url" type="url" placeholder="https://github.com/…">
+                <p class="field__error" data-error-for="github_url"></p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="p-demo">Demo URL</label>
+                <input class="field__input" id="p-demo" name="demo_url" type="url" placeholder="https://…">
+                <p class="field__error" data-error-for="demo_url"></p>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="p-date">Project date</label>
+              <input class="field__input" id="p-date" name="project_date" type="date">
+              <p class="field__error" data-error-for="project_date"></p>
+            </div>
+            <div class="admin-form__actions">
+              <button class="btn btn--primary" type="submit" data-project-submit>Add project</button>
+              <button class="btn btn--ghost" type="button" data-project-cancel hidden>Cancel edit</button>
+            </div>
+            <div class="form-status" role="status" aria-live="polite" data-project-status></div>
+          </form>
+
+          <div class="admin-card glass">
+            <div class="admin-card__head">
+              <h2>Published projects</h2>
+              <span class="admin-count" data-project-count>0</span>
+            </div>
+            <ul class="admin-list" data-project-list></ul>
+            <p class="admin-muted" data-project-empty>No projects yet. The public site shows the “Projects will be added here.” empty state.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="admin-panel" role="tabpanel" id="panel-messages" aria-labelledby="tab-messages" hidden>
+        <div class="admin-card glass">
+          <div class="admin-card__head">
+            <h2>Contact messages</h2>
+            <span class="admin-count" data-message-count>0</span>
+          </div>
+          <ul class="admin-list" data-message-list></ul>
+          <p class="admin-muted" data-message-empty>No messages yet.</p>
+          <button class="btn btn--ghost btn--sm" type="button" data-message-more hidden>Load more</button>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="admin-panel" role="tabpanel" id="panel-achievements" aria-labelledby="tab-achievements" hidden>
+        <div class="admin-card glass">
+          <div class="admin-card__head">
+            <h2>Achievement certificates</h2>
+          </div>
+          <p class="admin-muted">Optionally link a real certificate: an https URL, or a site path such as <code>/assets/certificates/award.pdf</code> after placing the file in <code>frontend/assets/certificates/</code>. Leave empty to show no certificate.</p>
+          <ul class="admin-list" data-achievement-list></ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="form-status admin-toast" role="status" aria-live="polite" data-global-status></div>
+  </main>
+</body>
+</html>

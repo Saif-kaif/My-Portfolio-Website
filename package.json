@@ -1,0 +1,14 @@
+{
+  "name": "saifuzzaman-kaif-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio of Saifuzzaman Kaif — vanilla HTML/CSS/JS frontend, Express.js REST API, PostgreSQL.",
+  "private": true,
+  "scripts": {
+    "setup": "cd backend && npm install",
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "test": "cd backend && npm test",
+    "db:init": "cd backend && npm run db:init",
+    "admin:create": "cd backend && npm run admin:create"
+  }
+}

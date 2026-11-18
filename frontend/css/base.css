@@ -1,0 +1,322 @@
+/* =====================================================================
+   Design system — tokens, reset, typography, layout primitives
+   ===================================================================== */
+
+:root {
+  /* Brand palette */
+  --c-navy: #0B132B;
+  --c-navy-deep: #111D35;
+  --c-green: #12372A;
+  --c-lime: #D7FC70;
+  --c-white: #F5F7F8;
+  --c-muted: #9BA7B4;
+
+  /* Supporting accents */
+  --c-bronze: #CD7F32;
+  --c-bronze-light: #F0B27A;
+  --c-danger: #FF9B9B;
+
+  /* Semantic roles */
+  --bg: var(--c-navy);
+  --bg-alt: var(--c-navy-deep);
+  --text: var(--c-white);
+  --text-muted: var(--c-muted);
+  --accent: var(--c-lime);
+  --accent-ink: var(--c-navy);
+  --accent-soft: rgba(215, 252, 112, 0.1);
+
+  --surface: rgba(17, 29, 53, 0.55);
+  --surface-strong: rgba(17, 29, 53, 0.88);
+  --line: rgba(245, 247, 248, 0.08);
+  --line-strong: rgba(245, 247, 248, 0.16);
+  --line-accent: rgba(215, 252, 112, 0.42);
+  --grid-line: rgba(245, 247, 248, 0.045);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: clamp(1.2rem, 1.08rem + 0.5vw, 1.5rem);
+  --fs-xl: clamp(1.6rem, 1.25rem + 1.6vw, 2.4rem);
+  --fs-2xl: clamp(2.2rem, 1.5rem + 3vw, 3.75rem);
+  --fs-hero: clamp(2.6rem, 1rem + 5.6vw, 5.5rem);
+
+  /* Spacing & shape */
+  --section-y: clamp(4.5rem, 3rem + 6vw, 8rem);
+  --container: 1180px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --header-h: 72px;
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Depth */
+  --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 30px 60px -20px rgba(0, 0, 0, 0.65);
+  --glow: 0 0 0 1px var(--line-accent), 0 18px 44px -18px rgba(215, 252, 112, 0.4);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.5s;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 8px);
+  background: var(--bg);
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  max-width: 100%;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p { margin: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+ul, ol { margin: 0; padding: 0; }
+
+code, pre { font-family: var(--font-mono); }
+
+[hidden] { display: none !important; }
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Accessibility helpers ---------- */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1.1rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease);
+}
+
+.skip-link:focus { transform: none; }
+
+/* ---------- Layout primitives ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.mono { font-family: var(--font-mono); }
+
+/* ---------- Decorative background ---------- */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 25%, transparent 78%);
+  animation: grid-pan 40s linear infinite;
+}
+
+@keyframes grid-pan {
+  to { background-position: 64px 64px, 64px 64px; }
+}
+
+.bg-glow {
+  position: fixed;
+  z-index: -2;
+  width: min(560px, 90vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+.bg-glow--lime {
+  top: -220px;
+  right: -180px;
+  background: var(--c-lime);
+  opacity: 0.1;
+}
+
+.bg-glow--green {
+  bottom: -240px;
+  left: -220px;
+  background: #1F7A52;
+  opacity: 0.2;
+}
+
+.cursor-glow {
+  display: none;
+}
+
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .cursor-glow {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 440px;
+    height: 440px;
+    margin: -220px 0 0 -220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(215, 252, 112, 0.075), transparent 65%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    will-change: transform;
+  }
+
+  .cursor-glow.is-active { opacity: 1; }
+}
+
+/* ---------- Scroll reveal (content stays visible without JS) ---------- */
+/* Uses an animation on `translate` so it never fights a component's own
+   `transform` hover effects or `transition` declarations. */
+.js .reveal { opacity: 0; }
+
+.js .reveal.is-visible {
+  animation: reveal-in 0.8s var(--ease) var(--reveal-delay, 0s) both;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+.reveal-delay-1 { --reveal-delay: 0.08s; }
+.reveal-delay-2 { --reveal-delay: 0.16s; }
+.reveal-delay-3 { --reveal-delay: 0.24s; }
+
+/* ---------- Hero entrance (pure CSS, ends fully visible) ---------- */
+.enter {
+  animation: enter 0.9s var(--ease) both;
+}
+
+.enter-1 { animation-delay: 0.05s; }
+.enter-2 { animation-delay: 0.15s; }
+.enter-3 { animation-delay: 0.28s; }
+.enter-4 { animation-delay: 0.4s; }
+.enter-5 { animation-delay: 0.52s; }
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .js .reveal { opacity: 1; }
+}
