@@ -160,6 +160,22 @@ Project fields: `title` (required, ≤150), `description` (required, ≤5000), `
 - Centralized error handling returns safe messages. Internals are only logged on the server.
 - The contact form **stores** messages in PostgreSQL. It does not send email, and the UI never claims it does.
 
+## Deploying to Vercel
+
+The repo is ready for Vercel. [vercel.json](vercel.json) serves `frontend/` as static files and rewrites `/api/*`, `/robots.txt` and `/sitemap.xml` to [api/index.js](api/index.js), which runs the same Express app as a serverless function.
+
+1. **Create a hosted database.** In the Vercel project, open **Storage → Create Database → Neon (Postgres)** and connect it to the project. This adds `DATABASE_URL` to the project's environment variables.
+2. **Add environment variable** `PGSSL=true` (Settings → Environment Variables).
+3. **Create the tables and admin user on that database** from your computer (PowerShell, in `backend/`):
+   ```powershell
+   $env:DATABASE_URL = "<the Neon connection string>"; $env:PGSSL = "true"
+   npm run db:init
+   npm run admin:create
+   ```
+4. **Redeploy** (push to GitHub or click *Redeploy*). Check `https://<your-site>/api/health`; it should show `"database":"up"`.
+
+`SITE_URL` defaults to the Vercel production URL. Set it explicitly if you add a custom domain.
+
 ## Deployment notes
 
 - Set `NODE_ENV=production`, `HOST=0.0.0.0`, a real `SITE_URL` (used for `sitemap.xml` and `robots.txt`) and serve over HTTPS.

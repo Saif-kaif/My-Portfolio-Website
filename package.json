@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Personal portfolio of Saifuzzaman Kaif — vanilla HTML/CSS/JS frontend, Express.js REST API, PostgreSQL.",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.12"
+  },
   "scripts": {
     "setup": "cd backend && npm install",
     "start": "cd backend && npm start",
@@ -10,5 +14,9 @@
     "test": "cd backend && npm test",
     "db:init": "cd backend && npm run db:init",
     "admin:create": "cd backend && npm run admin:create"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.16.0"
   }
 }
